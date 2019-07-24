@@ -25,17 +25,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB7-Oc-aio">
-                                            <rect key="frame" x="8" y="8" width="354" height="27.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB7-Oc-aio">
+                                            <rect key="frame" x="16" y="8" width="338" height="27.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="leading" secondItem="cjM-gA-m66" secondAttribute="leading" constant="8" id="I8g-OI-1Dx"/>
+                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="leading" secondItem="cjM-gA-m66" secondAttribute="leading" constant="16" id="I8g-OI-1Dx"/>
                                         <constraint firstItem="DB7-Oc-aio" firstAttribute="top" secondItem="cjM-gA-m66" secondAttribute="top" constant="8" id="ToP-KO-tmm"/>
-                                        <constraint firstAttribute="trailing" secondItem="DB7-Oc-aio" secondAttribute="trailing" constant="8" id="cXu-n9-r0t"/>
+                                        <constraint firstAttribute="trailing" secondItem="DB7-Oc-aio" secondAttribute="trailing" constant="16" id="cXu-n9-r0t"/>
                                         <constraint firstAttribute="bottom" secondItem="DB7-Oc-aio" secondAttribute="bottom" constant="8" id="hbM-vG-PpR"/>
                                     </constraints>
                                 </tableViewCellContentView>
