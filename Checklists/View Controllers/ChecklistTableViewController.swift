@@ -24,8 +24,11 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Checklists"
 
-        items.append(ChecklistItem(text: "Grocery Shopping"))
-        items.append(ChecklistItem(text: "Feed Dogs"))
+        // Test out data persistance methods
+        // print("Documents folder is \(documentsDirectory())")
+        // print("Data file path is \(dataFilePath())")
+
+        loadCheckListItems()
     }
 
     // MARK: - Methods
@@ -88,15 +91,17 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+        saveChecklistItems()
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         items.remove(at: indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
     }
 
-    // MARK: - AddItemTableViewControllerDelegate
+    // MARK: - ItemDetailTableViewControllerDelegate
     func itemDetailTableViewControllerDidCancel(_ controller: ItemDetailTableViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -106,6 +111,7 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         let indexPath = IndexPath(row: items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         navigationController?.popViewController(animated: true)
+        saveChecklistItems()
     }
 
     func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishEditing item: ChecklistItem) {
@@ -115,9 +121,53 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
             if let cell = tableView.cellForRow(at: indexPath) {
                 configureText(for: cell, with: item)
             }
+            saveChecklistItems()
         }
 
         navigationController?.popViewController(animated: true)
+    }
+
+    // MARK: - Data Persistance
+
+    // Testing data persistance
+    // Run the app and make some changes to the to-do items. Press Stop to terminate the app. Start it again and notice that your changes are still there.
+    // Stop the app again. Go to the Finder window with the Documents folder and remove the Checklists.plist file. Run the app once more. You should now have an empty list of items.
+    // Add an item and notice that the Checklists.plist file re-appears.
+
+    func documentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+
+    func dataFilePath() -> URL {
+        return documentsDirectory().appendingPathComponent("Checklists.plist")
+    }
+
+    // Saving objects to a file
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        }
+        catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+
+    // Load items from file
+    func loadCheckListItems() {
+        let path = dataFilePath()
+        if let data = try? Data(contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                items = try decoder.decode([ChecklistItem].self, from: data)
+            }
+            catch {
+                print("Error decoding item array :\(error.localizedDescription)")
+            }
+        }
     }
 
 }

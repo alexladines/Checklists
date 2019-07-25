@@ -8,12 +8,15 @@
 
 import Foundation
 
-class ChecklistItem : NSObject {
+// Need the NSObject to use index(of:) on arrays of this object.
+// Codable combines Encodable and Decodable protocols.
+class ChecklistItem : NSObject, Codable {
     var text = ""
     var checked = false
 
     init(text: String, checked: Bool = false) {
         self.text = text
+        super.init()
     }
     
     func toggleChecked() {
