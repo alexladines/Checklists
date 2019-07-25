@@ -62,20 +62,41 @@
         <scene sceneID="6pn-W9-zNh">
             <objects>
                 <tableViewController id="2zx-Al-vSZ" customClass="AddItemTableViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5Ct-Ls-7jt">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Ct-Ls-7jt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mDC-MM-uWh">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mDC-MM-uWh" id="1Yx-qk-MCJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="fht-0k-2BU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="mDC-MM-uWh">
+                                        <rect key="frame" x="0.0" y="35" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mDC-MM-uWh" id="1Yx-qk-MCJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the Item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Cbz-Lc-5Zb">
+                                                    <rect key="frame" x="20" y="6" width="374" height="30"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="keyboardDoneButtonTapped" destination="2zx-Al-vSZ" eventType="editingDidEndOnExit" id="QtB-BC-ra5"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Cbz-Lc-5Zb" secondAttribute="trailing" constant="20" id="CjU-Zn-93L"/>
+                                                <constraint firstItem="Cbz-Lc-5Zb" firstAttribute="top" secondItem="1Yx-qk-MCJ" secondAttribute="top" constant="6" id="S5i-W3-6lr"/>
+                                                <constraint firstAttribute="bottom" secondItem="Cbz-Lc-5Zb" secondAttribute="bottom" constant="7.5" id="Ugw-4N-929"/>
+                                                <constraint firstItem="Cbz-Lc-5Zb" firstAttribute="leading" secondItem="1Yx-qk-MCJ" secondAttribute="leading" constant="20" id="vlc-XQ-Q4P"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="2zx-Al-vSZ" id="TmQ-F1-jYn"/>
                             <outlet property="delegate" destination="2zx-Al-vSZ" id="IQl-J6-Jso"/>
@@ -84,19 +105,23 @@
                     <navigationItem key="navigationItem" title="Add Item" id="Arl-Ly-dQg">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="H1d-AS-t8V">
                             <connections>
-                                <action selector="cancelBarButtonTapped:" destination="2zx-Al-vSZ" id="oxB-PM-H2L"/>
+                                <action selector="cancelBarButtonTapped:" destination="2zx-Al-vSZ" id="qpB-Iv-yd3"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Se1-Ra-FIs">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="done" id="Se1-Ra-FIs">
                             <connections>
-                                <action selector="doneBarButtonTapped:" destination="2zx-Al-vSZ" id="7lm-t5-jP3"/>
+                                <action selector="doneBarButtonTapped:" destination="2zx-Al-vSZ" id="rxq-ri-bZ1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addItemTextField" destination="Cbz-Lc-5Zb" id="eO5-2l-qd5"/>
+                        <outlet property="doneBarButton" destination="Se1-Ra-FIs" id="5ZZ-Md-5NW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vM0-2p-TlC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1452" y="146"/>
+            <point key="canvasLocation" x="1450.7246376811595" y="145.98214285714286"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cPp-3a-zfW">
