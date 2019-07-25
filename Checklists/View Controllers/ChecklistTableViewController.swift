@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistTableViewController: UITableViewController, AddItemTableViewControllerDelegate {
+class ChecklistTableViewController: UITableViewController, ItemDetailTableViewControllerDelegate {
 
     // MARK: - Properties
     var items = [ChecklistItem]()
@@ -31,11 +31,12 @@ class ChecklistTableViewController: UITableViewController, AddItemTableViewContr
     // MARK: - Methods
     // Manages the checkmark on each checklistItem
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(1001) as! UILabel
         if item.checked {
-            cell.accessoryType = .checkmark
+            label.text = "√"
         }
         else {
-            cell.accessoryType = .none
+            label.text = ""
         }
     }
 
@@ -48,8 +49,18 @@ class ChecklistTableViewController: UITableViewController, AddItemTableViewContr
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
-            let vc = segue.destination as! AddItemTableViewController
+            let vc = segue.destination as! ItemDetailTableViewController
             vc.delegate = self
+        }
+        // TIP: Thie segue was created by dragging the cell to the new vc and selecting show from Accessory Action
+        else if segue.identifier == "EditItem" {
+            let vc = segue.destination as! ItemDetailTableViewController
+            vc.delegate = self
+
+            // Get tapped cell's info
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                vc.itemToEdit = items[indexPath.row]
+            }
         }
     }
 
@@ -86,14 +97,26 @@ class ChecklistTableViewController: UITableViewController, AddItemTableViewContr
     }
 
     // MARK: - AddItemTableViewControllerDelegate
-    func addItemTableViewControllerDidCancel(_ controller: AddItemTableViewController) {
+    func itemDetailTableViewControllerDidCancel(_ controller: ItemDetailTableViewController) {
         navigationController?.popViewController(animated: true)
     }
 
-    func addItemTableViewController(_ controller: AddItemTableViewController, didFinishAdding item: ChecklistItem) {
+    func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishAdding item: ChecklistItem) {
         items.append(item)
         let indexPath = IndexPath(row: items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
+
+    func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishEditing item: ChecklistItem) {
+        // ChecklistItem has to conform to Equatable, we can conform to NSObject to fix this.
+        if let index = items.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
+
         navigationController?.popViewController(animated: true)
     }
 

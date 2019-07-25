@@ -18,27 +18,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="j1a-tL-Md2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="j1a-tL-Md2">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j1a-tL-Md2" id="cjM-gA-m66">
-                                    <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB7-Oc-aio">
-                                            <rect key="frame" x="16" y="8" width="338" height="27.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB7-Oc-aio">
+                                            <rect key="frame" x="33" y="9" width="301" height="26"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="301" id="sDV-jW-hou"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqJ-6p-Nbr">
+                                            <rect key="frame" x="15" y="9" width="10" height="26"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="leading" secondItem="cjM-gA-m66" secondAttribute="leading" constant="16" id="I8g-OI-1Dx"/>
-                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="top" secondItem="cjM-gA-m66" secondAttribute="top" constant="8" id="ToP-KO-tmm"/>
-                                        <constraint firstAttribute="trailing" secondItem="DB7-Oc-aio" secondAttribute="trailing" constant="16" id="cXu-n9-r0t"/>
-                                        <constraint firstAttribute="bottom" secondItem="DB7-Oc-aio" secondAttribute="bottom" constant="8" id="hbM-vG-PpR"/>
+                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="leading" secondItem="wqJ-6p-Nbr" secondAttribute="trailing" constant="8" id="2oC-wt-L6Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="wqJ-6p-Nbr" secondAttribute="bottom" constant="8.5" id="8gb-8E-CEB"/>
+                                        <constraint firstAttribute="bottom" secondItem="DB7-Oc-aio" secondAttribute="bottom" constant="8.5" id="XOF-LX-4j8"/>
+                                        <constraint firstItem="DB7-Oc-aio" firstAttribute="top" secondItem="cjM-gA-m66" secondAttribute="top" constant="9" id="dsx-rf-eqs"/>
+                                        <constraint firstItem="wqJ-6p-Nbr" firstAttribute="top" secondItem="cjM-gA-m66" secondAttribute="top" constant="9" id="e55-m5-Wyr"/>
+                                        <constraint firstItem="wqJ-6p-Nbr" firstAttribute="leading" secondItem="cjM-gA-m66" secondAttribute="leading" constant="15" id="fCE-8s-TEV"/>
+                                        <constraint firstAttribute="trailing" secondItem="DB7-Oc-aio" secondAttribute="trailing" constant="8" id="zPG-ta-8NH"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="2zx-Al-vSZ" kind="show" identifier="EditItem" trigger="accessoryAction" id="rvE-Rf-mSA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,12 +71,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oyf-Dq-dHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="613" y="146"/>
+            <point key="canvasLocation" x="611.59420289855075" y="145.98214285714286"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="6pn-W9-zNh">
             <objects>
-                <tableViewController id="2zx-Al-vSZ" customClass="AddItemTableViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="2zx-Al-vSZ" customClass="ItemDetailTableViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5Ct-Ls-7jt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,4 +157,7 @@
             <point key="canvasLocation" x="-188.40579710144928" y="145.98214285714286"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="rvE-Rf-mSA"/>
+    </inferredMetricsTieBreakers>
 </document>
