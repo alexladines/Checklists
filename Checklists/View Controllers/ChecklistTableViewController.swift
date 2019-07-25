@@ -15,10 +15,19 @@ class ChecklistTableViewController: UITableViewController {
     // MARK: - IBOutlets
 
     // MARK: - IBActions
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        items.append(ChecklistItem(text: "New Item"))
+        let indexPath = IndexPath(row: items.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Checklists"
+
         items.append(ChecklistItem(text: "Grocery Shopping"))
         items.append(ChecklistItem(text: "Feed Dogs"))
     }
@@ -66,6 +75,12 @@ class ChecklistTableViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
     }
 
 
