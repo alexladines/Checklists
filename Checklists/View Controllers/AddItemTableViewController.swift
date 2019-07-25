@@ -8,9 +8,19 @@
 
 import UIKit
 
+// Inherit from class because any references to this delegate are weak.
+// For weak references we need a protocol which can only be used with a reference type.
+protocol AddItemTableViewControllerDelegate: class {
+    func addItemTableViewControllerDidCancel(_ controller: AddItemTableViewController)
+    func addItemTableViewController(_ controller: AddItemTableViewController, didFinishAdding item: ChecklistItem)
+}
+
 class AddItemTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: - Properties
+    // Delegates are weak to describe their relationship with the vc.
+    // weak = are allowed to become nil again, unowned = can't do this.
+    weak var delegate: AddItemTableViewControllerDelegate?
 
     // MARK: - IBOutlets
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
@@ -19,16 +29,18 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: - IBActions
     @IBAction func cancelBarButtonTapped(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        delegate?.addItemTableViewControllerDidCancel(self)
     }
 
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem(text: addItemTextField.text!)
+        delegate?.addItemTableViewController(self, didFinishAdding: item)
     }
 
     // TextField - Did End On Exit
     @IBAction func keyboardDoneButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem(text: addItemTextField.text!)
+        delegate?.addItemTableViewController(self, didFinishAdding: item)
     }
 
     // MARK: - Life Cycle

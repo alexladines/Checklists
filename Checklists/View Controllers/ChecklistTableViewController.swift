@@ -8,18 +8,14 @@
 
 import UIKit
 
-class ChecklistTableViewController: UITableViewController {
+class ChecklistTableViewController: UITableViewController, AddItemTableViewControllerDelegate {
+
     // MARK: - Properties
     var items = [ChecklistItem]()
 
     // MARK: - IBOutlets
 
     // MARK: - IBActions
-    @IBAction func addItem(_ sender: UIBarButtonItem) {
-        items.append(ChecklistItem(text: "New Item"))
-        let indexPath = IndexPath(row: items.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -50,6 +46,12 @@ class ChecklistTableViewController: UITableViewController {
     }
 
     // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            let vc = segue.destination as! AddItemTableViewController
+            vc.delegate = self
+        }
+    }
 
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,5 +85,16 @@ class ChecklistTableViewController: UITableViewController {
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
 
+    // MARK: - AddItemTableViewControllerDelegate
+    func addItemTableViewControllerDidCancel(_ controller: AddItemTableViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func addItemTableViewController(_ controller: AddItemTableViewController, didFinishAdding item: ChecklistItem) {
+        items.append(item)
+        let indexPath = IndexPath(row: items.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
 
 }

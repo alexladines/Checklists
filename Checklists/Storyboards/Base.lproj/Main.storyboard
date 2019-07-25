@@ -49,7 +49,7 @@
                     <navigationItem key="navigationItem" id="QOA-gi-O6g">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DVO-6U-Dch">
                             <connections>
-                                <segue destination="2zx-Al-vSZ" kind="show" id="liC-Bo-qcJ"/>
+                                <segue destination="2zx-Al-vSZ" kind="show" identifier="AddItem" id="liC-Bo-qcJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
