@@ -27,7 +27,7 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
 
     // MARK: - IBOutlets
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    @IBOutlet weak var addItemTextField: UITextField!
+    @IBOutlet weak var textField: UITextField!
 
 
     // MARK: - IBActions
@@ -38,11 +38,11 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func doneBarButtonTapped(_ sender: UIBarButtonItem) {
         // If itemToEdit is not nil then it means user is editing.
         if let itemToEdit = itemToEdit {
-            itemToEdit.text = addItemTextField.text!
+            itemToEdit.text = textField.text!
             delegate?.itemDetailTableViewController(self, didFinishEditing: itemToEdit)
         }
         else {
-            let item = ChecklistItem(text: addItemTextField.text!)
+            let item = ChecklistItem(text: textField.text!)
             delegate?.itemDetailTableViewController(self, didFinishAdding: item)
         }
     }
@@ -51,11 +51,11 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func keyboardDoneButtonTapped() {
         // If itemToEdit is not nil then it means user is editing.
         if let itemToEdit = itemToEdit {
-            itemToEdit.text = addItemTextField.text!
+            itemToEdit.text = textField.text!
             delegate?.itemDetailTableViewController(self, didFinishEditing: itemToEdit)
         }
         else {
-            let item = ChecklistItem(text: addItemTextField.text!)
+            let item = ChecklistItem(text: textField.text!)
             delegate?.itemDetailTableViewController(self, didFinishAdding: item)
         }
     }
@@ -63,18 +63,18 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addItemTextField.becomeFirstResponder()
+        textField.becomeFirstResponder()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        addItemTextField.delegate = self
+        textField.delegate = self
 
         // If itemToEdit = nil then user hit the add button.
         if let itemToEdit = itemToEdit {
             title = "Edit Item"
-            addItemTextField.text = itemToEdit.text
+            textField.text = itemToEdit.text
             // Done button on Navigation Bar is initially disabled.
             doneBarButton.isEnabled = true
         }

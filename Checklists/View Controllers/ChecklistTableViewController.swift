@@ -11,6 +11,7 @@ import UIKit
 class ChecklistTableViewController: UITableViewController, ItemDetailTableViewControllerDelegate {
 
     // MARK: - Properties
+    var checklist: Checklist?
     var items = [ChecklistItem]()
 
     // MARK: - IBOutlets
@@ -21,8 +22,11 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Checklists"
+        guard let checklist = checklist else { return }
+
+        title = checklist.name
+
+        navigationItem.largeTitleDisplayMode = .never
 
         // Test out data persistance methods
         // print("Documents folder is \(documentsDirectory())")
@@ -73,7 +77,7 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItemCell", for: indexPath)
         let checklistItem = items[indexPath.row]
 
         configureText(for: cell, with: checklistItem)
