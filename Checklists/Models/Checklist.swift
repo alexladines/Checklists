@@ -11,6 +11,7 @@ import Foundation
 class Checklist: NSObject {
     // MARK: - Properties
     var name = ""
+    var items = [ChecklistItem]()
 
     // MARK: - Methods
     init(name: String) {

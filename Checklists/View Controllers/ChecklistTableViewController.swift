@@ -11,8 +11,8 @@ import UIKit
 class ChecklistTableViewController: UITableViewController, ItemDetailTableViewControllerDelegate {
 
     // MARK: - Properties
-    var checklist: Checklist?
-    var items = [ChecklistItem]()
+    var checklist: Checklist!
+
 
     // MARK: - IBOutlets
 
@@ -66,19 +66,19 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
 
             // Get tapped cell's info
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                vc.itemToEdit = items[indexPath.row]
+                vc.itemToEdit = checklist.items[indexPath.row]
             }
         }
     }
 
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return checklist.items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItemCell", for: indexPath)
-        let checklistItem = items[indexPath.row]
+        let checklistItem = checklist.items[indexPath.row]
 
         configureText(for: cell, with: checklistItem)
         configureCheckmark(for: cell, with: checklistItem)
@@ -89,7 +89,7 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     // When user selects a cell it toggles the checkmark on/off
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) {
-            let item = items[indexPath.row]
+            let item = checklist.items[indexPath.row]
             item.toggleChecked()
             configureCheckmark(for: cell, with: item)
         }
@@ -99,7 +99,7 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        items.remove(at: indexPath.row)
+        checklist.items.remove(at: indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
         saveChecklistItems()
@@ -111,8 +111,8 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     }
 
     func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishAdding item: ChecklistItem) {
-        items.append(item)
-        let indexPath = IndexPath(row: items.count - 1, section: 0)
+        checklist.items.append(item)
+        let indexPath = IndexPath(row: checklist.items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         navigationController?.popViewController(animated: true)
         saveChecklistItems()
@@ -120,7 +120,7 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
 
     func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishEditing item: ChecklistItem) {
         // ChecklistItem has to conform to Equatable, we can conform to NSObject to fix this.
-        if let index = items.firstIndex(of: item) {
+        if let index = checklist.items.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
                 configureText(for: cell, with: item)
@@ -138,40 +138,40 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     // Stop the app again. Go to the Finder window with the Documents folder and remove the Checklists.plist file. Run the app once more. You should now have an empty list of items.
     // Add an item and notice that the Checklists.plist file re-appears.
 
-    func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-
-    func dataFilePath() -> URL {
-        return documentsDirectory().appendingPathComponent("Checklists.plist")
-    }
-
-    // Saving objects to a file
-    func saveChecklistItems() {
-        let encoder = PropertyListEncoder()
-
-        do {
-            let data = try encoder.encode(items)
-            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
-        }
-        catch {
-            print("Error encoding item array: \(error.localizedDescription)")
-        }
-    }
-
-    // Load items from file
-    func loadCheckListItems() {
-        let path = dataFilePath()
-        if let data = try? Data(contentsOf: path) {
-            let decoder = PropertyListDecoder()
-            do {
-                items = try decoder.decode([ChecklistItem].self, from: data)
-            }
-            catch {
-                print("Error decoding item array :\(error.localizedDescription)")
-            }
-        }
-    }
+//    func documentsDirectory() -> URL {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return paths[0]
+//    }
+//
+//    func dataFilePath() -> URL {
+//        return documentsDirectory().appendingPathComponent("Checklists.plist")
+//    }
+//
+//    // Saving objects to a file
+//    func saveChecklistItems() {
+//        let encoder = PropertyListEncoder()
+//
+//        do {
+//            let data = try encoder.encode(items)
+//            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+//        }
+//        catch {
+//            print("Error encoding item array: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    // Load items from file
+//    func loadCheckListItems() {
+//        let path = dataFilePath()
+//        if let data = try? Data(contentsOf: path) {
+//            let decoder = PropertyListDecoder()
+//            do {
+//                items = try decoder.decode([ChecklistItem].self, from: data)
+//            }
+//            catch {
+//                print("Error decoding item array :\(error.localizedDescription)")
+//            }
+//        }
+//    }
 
 }
