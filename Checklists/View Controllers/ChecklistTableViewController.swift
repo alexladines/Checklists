@@ -31,8 +31,6 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         // Test out data persistance methods
         // print("Documents folder is \(documentsDirectory())")
         // print("Data file path is \(dataFilePath())")
-
-        loadCheckListItems()
     }
 
     // MARK: - Methods
@@ -95,14 +93,12 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
-        saveChecklistItems()
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         checklist.items.remove(at: indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
-        saveChecklistItems()
     }
 
     // MARK: - ItemDetailTableViewControllerDelegate
@@ -115,7 +111,6 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
         let indexPath = IndexPath(row: checklist.items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         navigationController?.popViewController(animated: true)
-        saveChecklistItems()
     }
 
     func itemDetailTableViewController(_ controller: ItemDetailTableViewController, didFinishEditing item: ChecklistItem) {
@@ -125,7 +120,6 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
             if let cell = tableView.cellForRow(at: indexPath) {
                 configureText(for: cell, with: item)
             }
-            saveChecklistItems()
         }
 
         navigationController?.popViewController(animated: true)
