@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Checklist: NSObject {
+class Checklist: NSObject, Codable {
     // MARK: - Properties
     var name = ""
     var items = [ChecklistItem]()
@@ -28,4 +28,6 @@ class Checklist: NSObject {
     // MARK: - UserDefaults
 
     // MARK: - Data Persistance
+
+
 }
