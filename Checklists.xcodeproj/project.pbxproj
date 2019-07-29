@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1EE41B22EF586F00018AA5 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1EE41A22EF586F00018AA5 /* DataModel.swift */; };
 		0F93BDB022E8F2A000760E21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93BDAF22E8F2A000760E21 /* AppDelegate.swift */; };
 		0F93BDB522E8F2A000760E21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F93BDB322E8F2A000760E21 /* Main.storyboard */; };
 		0F93BDB722E8F2A100760E21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F93BDB622E8F2A100760E21 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F1EE41A22EF586F00018AA5 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		0F93BDAC22E8F2A000760E21 /* Checklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F93BDAF22E8F2A000760E21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F93BDB422E8F2A000760E21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		0F93BDC522E8F42400760E21 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0F1EE41A22EF586F00018AA5 /* DataModel.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				0F93BDD222EA7D2700760E21 /* Checklist.swift in Sources */,
 				0F93BDCA22E9069900760E21 /* ChecklistItem.swift in Sources */,
 				0F93BDD022EA74EB00760E21 /* AllListsTableViewController.swift in Sources */,
+				0F1EE41B22EF586F00018AA5 /* DataModel.swift in Sources */,
 				0F93BDB022E8F2A000760E21 /* AppDelegate.swift in Sources */,
 				0FD5FAB222EB6E8F00BA433B /* ListDetailTableViewController.swift in Sources */,
 			);
