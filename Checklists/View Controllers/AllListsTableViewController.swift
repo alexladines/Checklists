@@ -19,6 +19,11 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
     // MARK: - IBActions
 
     // MARK: - Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     // After VC becomes visible
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -73,7 +78,14 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
         cell.textLabel!.text = checklist.name
         cell.textLabel!.font = UIFont.systemFont(ofSize: 21)
         cell.accessoryType = .detailDisclosureButton
-        cell.detailTextLabel!.text = "\(checklist.countUncheckedItems()) Remaining"
+        let count = checklist.countUncheckedItems()
+        if checklist.items.count == 0 {
+            cell.detailTextLabel!.text = "(No Items)"
+        }
+        else {
+            cell.detailTextLabel!.text = count == 0 ? "All Done!" : "\(count) Remaining"
+        }
+
         return cell
     }
 
