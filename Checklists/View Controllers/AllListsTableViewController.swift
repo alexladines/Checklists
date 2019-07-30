@@ -20,7 +20,7 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
 
     // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
-        viewWillAppear(animated)
+        super.viewWillAppear(animated)
         tableView.reloadData()
     }
 
@@ -129,21 +129,18 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
 
     func listDetailTableViewController(_ controller: ListDetailTableViewController, didFinishAdding checklist: Checklist) {
         dataModel.lists.append(checklist)
-        let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        dataModel.sortChecklists()
+        tableView.reloadData()
+        // Don't need to add rows manually because of the tableview.reloadData(), in an app with many rows this would not scale.
+        // let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
+        // tableView.insertRows(at: [indexPath], with: .automatic)
         navigationController?.popViewController(animated: true)
     }
 
     func listDetailTableViewController(_ controller: ListDetailTableViewController, didFinishEditing checklist: Checklist) {
-        // ChecklistItem has to conform to Equatable, we can conform to NSObject to fix this.
-        if let index = dataModel.lists.firstIndex(of: checklist) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) {
-                cell.textLabel?.text = checklist.name
-            }
-        }
-
+        // Don't need to add rows manually because of the tableview.reloadData(), in an app with many rows this would not scale.
+        dataModel.sortChecklists()
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
-    
 }
