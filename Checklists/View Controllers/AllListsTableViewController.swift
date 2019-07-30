@@ -32,7 +32,7 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        // tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         title = "Checklists"
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -60,10 +60,20 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
 
     // Making the cells by code instead of storyboard prototypes just to learn how to do it.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel!.text = dataModel.lists[indexPath.row].name
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 21)
+        let cell: UITableViewCell!
+        if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = dequeuedCell
+        }
+        else {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+        }
+        // Returns a default style cell and use of the subtitle will crash the app
+        // let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let checklist = dataModel.lists[indexPath.row]
+        cell.textLabel!.text = checklist.name
+        cell.textLabel!.font = UIFont.systemFont(ofSize: 21)
         cell.accessoryType = .detailDisclosureButton
+        cell.detailTextLabel!.text = "\(checklist.countUncheckedItems()) Remaining"
         return cell
     }
 
