@@ -9,6 +9,7 @@
 import UIKit
 
 // App Delegate is the top-level object in our app so this will be the owner of our data model.
+// Note: Changing global tint color -> Go to storyboard -> click on any scene -> Global Tint
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
