@@ -42,8 +42,7 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate,
 
         // User was adding an item
         else {
-            let checklist = Checklist(name: textField.text!)
-            checklist.iconName = iconName
+            let checklist = Checklist(name: textField.text!, iconName: iconName)
             delegate?.listDetailTableViewController(self, didFinishAdding: checklist)
         }
     }
@@ -56,9 +55,9 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate,
             delegate?.listDetailTableViewController(self, didFinishEditing: checklistToEdit)
         }
 
-            // User was adding an item
+        // User was adding an item
         else {
-            let checklist = Checklist(name: textField.text!)
+            let checklist = Checklist(name: textField.text!, iconName: iconName)
             checklist.iconName = iconName
             delegate?.listDetailTableViewController(self, didFinishAdding: checklist)
         }
