@@ -14,12 +14,14 @@ protocol ListDetailTableViewControllerDelegate: class {
     func listDetailTableViewController(_ controller: ListDetailTableViewController, didFinishEditing checklist: Checklist)
 }
 
-class ListDetailTableViewController: UITableViewController, UITextFieldDelegate {
+class ListDetailTableViewController: UITableViewController, UITextFieldDelegate, IconPickerTableViewControllerDelegate {
     // MARK: - Properties
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var iconImage: UIImageView!
 
     weak var delegate: ListDetailTableViewControllerDelegate?
+    var iconName = "Folder"
 
     var checklistToEdit: Checklist?
 
@@ -34,12 +36,14 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate 
         // User was editing
         if let checklistToEdit = checklistToEdit {
             checklistToEdit.name = textField.text!
+            checklistToEdit.iconName = iconName
             delegate?.listDetailTableViewController(self, didFinishEditing: checklistToEdit)
         }
 
         // User was adding an item
         else {
             let checklist = Checklist(name: textField.text!)
+            checklist.iconName = iconName
             delegate?.listDetailTableViewController(self, didFinishAdding: checklist)
         }
     }
@@ -48,12 +52,14 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate 
         // User was editing
         if let checklistToEdit = checklistToEdit {
             checklistToEdit.name = textField.text!
+            checklistToEdit.iconName = iconName
             delegate?.listDetailTableViewController(self, didFinishEditing: checklistToEdit)
         }
 
             // User was adding an item
         else {
             let checklist = Checklist(name: textField.text!)
+            checklist.iconName = iconName
             delegate?.listDetailTableViewController(self, didFinishAdding: checklist)
         }
     }
@@ -73,17 +79,25 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate 
             title = "Edit Checklist"
             textField.text = checklistToEdit.name
             doneBarButton.isEnabled = true
+            iconName = checklistToEdit.iconName
         }
         else {
             title = "Add Checklist"
         }
-        
+
+        iconImage.image = UIImage(named: iconName)
         textField.delegate = self
     }
 
     // MARK: - Methods
 
     // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickIcon" {
+            let controller = segue.destination as! IconPickerTableViewController
+            controller.delegate = self
+        }
+    }
 
     // MARK: - Data Persistance
 
@@ -91,7 +105,7 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate 
 
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
+        return indexPath.section == 1 ? indexPath : nil
     }
 
     // MARK: - UITextFieldDelegate
@@ -106,5 +120,12 @@ class ListDetailTableViewController: UITableViewController, UITextFieldDelegate 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         doneBarButton.isEnabled = false
         return true
+    }
+
+    // IconPickerTableViewControllerDelegate
+    func iconPickerTableViewController(_ picker: IconPickerTableViewController, didPick iconName: String) {
+        self.iconName = iconName
+        iconImage.image = UIImage(named: iconName)
+        navigationController?.popViewController(animated: true)
     }
 }

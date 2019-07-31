@@ -12,6 +12,8 @@ class Checklist: NSObject, Codable {
     // MARK: - Properties
     var name = ""
     var items = [ChecklistItem]()
+    // Names will be from Assets.xcassets
+    var iconName = "No Icon"
 
     // MARK: - Methods
     init(name: String) {

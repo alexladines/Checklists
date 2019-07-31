@@ -17,9 +17,8 @@ protocol ItemDetailTableViewControllerDelegate: class {
 }
 
 class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate {
-
     // MARK: - Properties
-
+    
     // Delegates are weak to describe their relationship with the vc.
     // weak = are allowed to become nil again, unowned = can't do this.
     weak var delegate: ItemDetailTableViewControllerDelegate?
@@ -123,5 +122,7 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
         doneBarButton.isEnabled = false
         return true
     }
+
+
 
 }

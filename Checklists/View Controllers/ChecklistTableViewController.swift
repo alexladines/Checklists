@@ -13,7 +13,6 @@ class ChecklistTableViewController: UITableViewController, ItemDetailTableViewCo
     // MARK: - Properties
     var checklist: Checklist!
 
-
     // MARK: - IBOutlets
 
     // MARK: - IBActions
