@@ -34,6 +34,7 @@ class ChecklistItem : NSObject, Codable  {
 
     // Still have to add permission
     func scheduleNotification() {
+        removeNotification()
         if shouldRemind && dueDate > Date() {
             // Testing
             print("We should schedule a notification!")
@@ -60,6 +61,11 @@ class ChecklistItem : NSObject, Codable  {
 
             print("Scheduled: \(request) for itemID: \(itemID)")
         }
+    }
+
+    func removeNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["\(itemID)"])
     }
 
     // MARK: - Codable
