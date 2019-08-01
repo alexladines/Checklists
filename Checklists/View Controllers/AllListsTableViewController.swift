@@ -76,7 +76,7 @@ class AllListsTableViewController: UITableViewController, ListDetailTableViewCon
         // let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         let checklist = dataModel.lists[indexPath.row]
         cell.textLabel!.text = checklist.name
-        cell.textLabel!.font = UIFont.systemFont(ofSize: 21)
+        cell.textLabel!.font = UIFont.systemFont(ofSize: 17)
         cell.imageView?.image = UIImage(named: checklist.iconName) //Subtitle style comes with an imageView
         cell.accessoryType = .detailDisclosureButton
         let count = checklist.countUncheckedItems()

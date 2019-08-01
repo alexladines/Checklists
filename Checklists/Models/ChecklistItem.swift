@@ -15,10 +15,15 @@ class ChecklistItem : NSObject, Codable {
     // MARK: - Properties
     var text = ""
     var checked = false
+    var dueDate = Date()
+    var shouldRemind = false
+    var itemID = -1
+
 
     // MARK: - Methods
     init(text: String, checked: Bool = false) {
         self.text = text
+        itemID = DataModel.nextChecklistItemID()
         super.init()
     }
 
