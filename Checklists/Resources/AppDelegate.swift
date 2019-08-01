@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import UserNotifications
 
 // App Delegate is the top-level object in our app so this will be the owner of our data model.
 // Note: Changing global tint color -> Go to storyboard -> click on any scene -> Global Tint
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let dataModel = DataModel()
@@ -21,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = window!.rootViewController as! UINavigationController
         let controller = navigationController.viewControllers[0] as! AllListsTableViewController
         controller.dataModel = dataModel
+
+        // Notification Authorization
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+
         return true
     }
 
@@ -55,6 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let navController = window!.rootViewController as! UINavigationController
 //        let controller = navController.viewControllers[0] as! AllListsTableViewController
         dataModel.saveChecklists()
+    }
+
+    // MARK: - UNUserNotificationCenterDelegate
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Received local notification \(notification)")
     }
 }
 
