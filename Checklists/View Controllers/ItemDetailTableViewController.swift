@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 // Inherit from class because any references to this delegate are weak.
 // For weak references we need a protocol which can only be used with a reference type.
@@ -45,12 +46,14 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
             itemToEdit.text = textField.text!
             itemToEdit.shouldRemind = shouldRemindSwitch.isOn
             itemToEdit.dueDate = dueDate
+            itemToEdit.scheduleNotification()
             delegate?.itemDetailTableViewController(self, didFinishEditing: itemToEdit)
         }
         else {
             let item = ChecklistItem(text: textField.text!)
             item.shouldRemind = shouldRemindSwitch.isOn
             item.dueDate = dueDate
+            item.scheduleNotification()
             delegate?.itemDetailTableViewController(self, didFinishAdding: item)
         }
     }
@@ -64,12 +67,14 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
             itemToEdit.text = textField.text!
             itemToEdit.shouldRemind = shouldRemindSwitch.isOn
             itemToEdit.dueDate = dueDate
+            itemToEdit.scheduleNotification()
             delegate?.itemDetailTableViewController(self, didFinishEditing: itemToEdit)
         }
         else {
             let item = ChecklistItem(text: textField.text!)
             item.shouldRemind = shouldRemindSwitch.isOn
             item.dueDate = dueDate
+            item.scheduleNotification()
             delegate?.itemDetailTableViewController(self, didFinishAdding: item)
         }
     }
@@ -78,6 +83,18 @@ class ItemDetailTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func dateChanged(_ sender: UIDatePicker) {
         dueDate = sender.date
         updateDueDateLabel()
+    }
+
+    // UISwitch - Ask for permission for notifications
+    @IBAction func shouldRemindToggled(_ sender: UISwitch) {
+        textField.resignFirstResponder()
+
+        if sender.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                // Do nothing
+            }
+        }
     }
 
 

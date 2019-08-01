@@ -264,6 +264,9 @@
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="e1L-a1-GBc">
                                                             <rect key="frame" x="327" y="0.0" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="shouldRemindToggled:" destination="2zx-Al-vSZ" eventType="valueChanged" id="jbe-ro-HxY"/>
+                                                            </connections>
                                                         </switch>
                                                     </subviews>
                                                 </stackView>
