@@ -28,6 +28,11 @@ class ChecklistItem : NSObject, Codable  {
         super.init()
     }
 
+    // Notification should be deleted when item is deleted.
+    deinit {
+        removeNotification()
+    }
+
     func toggleChecked() {
         checked.toggle()
     }
